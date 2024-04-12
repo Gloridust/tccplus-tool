@@ -189,7 +189,7 @@ def choose_service():
             print("You Chose 'Willow' service")
             service = "Willow"
         else:
-            print("无效的选项")
+            print("Invalid option")
             service = None
     else:
         print("No service is selected, 'All' is selected by default")
