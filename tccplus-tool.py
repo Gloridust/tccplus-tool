@@ -20,6 +20,17 @@ def check_and_download_tccplus():
                 print("Download failed: Unable to connect to the specified URL")
         except Exception as e:
             print("Download failed:", e)
+            try:
+                print(f"Download ‘tccplus’ from Github Mirror site  ...")
+                response = requests.get("https://kgithub.com/Gloridust/tccplus-tool/releases/download/v0.1.0/tccplus")
+                if response.status_code == 200:
+                    with open("./tccplus", 'wb') as f:
+                        f.write(response.content)
+                print("‘tccplus’ downloaded from Mirror site successfully and saved to './tccplus'")
+                else:
+                    print("Download failed: Unable to connect to the specified URL")
+            except Exception as e:
+                print("Download from Mirror site failed:", e)
 
 def get_app_path():
     root = tk.Tk()
