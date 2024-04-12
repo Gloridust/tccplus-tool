@@ -3,10 +3,12 @@ import tkinter as tk
 from tkinter import filedialog
 import subprocess
 
-root = tk.Tk()
-root.withdraw()  # Hide windows
-app_path = filedialog.askopenfilename()  # Select app
-print("Your app path is:：", app_path)
+def get_app_path():
+    root = tk.Tk()
+    root.withdraw()  # Hide windows
+    app_path = filedialog.askopenfilename()  # Select app
+    print("Your app path is:：", app_path)
+    return app_path
 
 def choose_action():
     print("Please select an action:")
@@ -27,8 +29,6 @@ def choose_action():
         action = "add"
     
     return action
-
-action = choose_action()
 
 def choose_service():
     print("请选择服务:")
@@ -197,7 +197,6 @@ def choose_service():
     
     return service
 
-service = choose_service()
 
 def get_bundle_identifier(app_path):
     try:
@@ -214,10 +213,7 @@ def get_bundle_identifier(app_path):
     except plistlib.InvalidFileException:
         print("Invalid Info.plist file")
 
-bundle_ident = get_bundle_identifier(app_path)
-
-def run_tccplus(bundle_ident):
-    # ./tccplus add Microphone com.hnc.Discord
+def run_tccplus(action,service,bundle_ident):
     command = ["./tccplus", action, service, bundle_ident]
     try:
         result = subprocess.run(command, capture_output=True, text=True, check=True)
@@ -225,4 +221,13 @@ def run_tccplus(bundle_ident):
     except subprocess.CalledProcessError as e:
         print("Command execution failed:", e)
 
-run_tccplus(bundle_ident)
+
+def main():
+    app_path = get_app_path()
+    action = choose_action()
+    service = choose_service()
+    bundle_ident = get_bundle_identifier(app_path)
+    run_tccplus(action,service,bundle_ident)
+
+if __name__ == "__main__":
+    main()
