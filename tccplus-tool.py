@@ -258,6 +258,7 @@ def main():
     service = choose_service()
     bundle_ident = get_bundle_identifier(app_path)
     run_tccplus(action,service,bundle_ident)
+    input("Press any key to continue...")
 
 if __name__ == "__main__":
     main()
