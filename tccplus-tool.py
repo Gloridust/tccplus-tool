@@ -26,7 +26,7 @@ def check_and_download_tccplus():
                 if response.status_code == 200:
                     with open("./tccplus", 'wb') as f:
                         f.write(response.content)
-                print("‘tccplus’ downloaded from Mirror site successfully and saved to './tccplus'")
+                    print("‘tccplus’ downloaded from Mirror site successfully and saved to './tccplus'")
                 else:
                     print("Download failed: Unable to connect to the specified URL")
             except Exception as e:
