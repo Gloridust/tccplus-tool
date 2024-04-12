@@ -20,7 +20,7 @@ def choose_action():
         if choice == "1":
             print("You selected 'add'")
             action = "add"
-        elif action == "2":
+        elif choice == "2":
             print("You selected 'reset'")
             action = "reset"
         else:
