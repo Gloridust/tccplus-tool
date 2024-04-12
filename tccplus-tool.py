@@ -18,7 +18,7 @@ def create_tccplus_folder():
 
 def download_file(url, file_path):
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=5)  # 设置超时时间为5秒
         if response.status_code == 200:
             with open(file_path, 'wb') as f:
                 f.write(response.content)
