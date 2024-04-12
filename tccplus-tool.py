@@ -9,32 +9,33 @@ def create_tccplus_folder():
     folder_path = os.path.expanduser("~/Library/Caches/tccplus-tool/")
     try:
         os.makedirs(folder_path, exist_ok=True)
-        print(f"文件夹 '{folder_path}' 创建成功")
+        print(f"Folder '{folder_path}' created successfully")
     except Exception as e:
         if "FileExistsError" in str(e):
             pass
         else:
-            print(f"创建文件夹失败:", e)
+            print(f"Failed to create folder:", e)
 
-def download_file(url, file_path):
+def download_file(url, tccplus_path):
     try:
-        response = requests.get(url, timeout=5)  # 设置超时时间为5秒
+        response = requests.get(url, timeout=3)
         if response.status_code == 200:
-            with open(file_path, 'wb') as f:
+            with open(tccplus_path, 'wb') as f:
                 f.write(response.content)
-            print(f"文件下载成功")
+            print(f"File download successful")
             return True
         else:
-            print("下载失败: 无法连接到指定的 URL")
+            print("Download failed: Unable to connect to the specified URL")
             return False
     except Exception as e:
-        print("下载失败:", e)
+        print("Download failed:", e)
         return False
 
 def check_and_download_tccplus():
-    file_path = os.path.expanduser("~/Library/Caches/tccplus-tool/tccplus")
-    if os.path.exists(file_path):
+    tccplus_path = os.path.expanduser("~/Library/Caches/tccplus-tool/tccplus")
+    if os.path.exists(tccplus_path):
         print(f"'tccplus' Check completed")
+        return True
     else:
         create_tccplus_folder()
         urls = [
@@ -42,11 +43,12 @@ def check_and_download_tccplus():
             "https://raw.staticdn.net/Gloridust/tccplus-tool/main/tccplus"
         ]
         for url in urls:
-            print(f"从 {url} 下载 'tccplus' ...")
-            if download_file(url, file_path):
-                break
+            print(f"Download 'tccplus' from {url} ...")
+            if download_file(url, tccplus_path):
+                return True
         else:
-            print("所有源都无法下载 'tccplus'")
+            print("None of the sources can be downloaded")
+            return False
 
 def get_app_path():
     root = tk.Tk()
@@ -268,13 +270,16 @@ def run_tccplus(action,service,bundle_ident):
 
 
 def main():
-    check_and_download_tccplus()
-    app_path = get_app_path()
-    action = choose_action()
-    service = choose_service()
-    bundle_ident = get_bundle_identifier(app_path)
-    run_tccplus(action,service,bundle_ident)
-    input("Press any key to continue...")
+    have_tccplus_file = check_and_download_tccplus()
+    if have_tccplus_file == True:
+        app_path = get_app_path()
+        action = choose_action()
+        service = choose_service()
+        bundle_ident = get_bundle_identifier(app_path)
+        run_tccplus(action,service,bundle_ident)
+        input("Press any key to continue...")
+    else:
+        print("No 'tccplus' file found")
 
 if __name__ == "__main__":
     main()
