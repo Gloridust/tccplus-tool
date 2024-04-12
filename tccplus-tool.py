@@ -2,6 +2,24 @@ import plistlib
 import tkinter as tk
 from tkinter import filedialog
 import subprocess
+import os
+import requests
+
+def check_and_download_tccplus():
+    if os.path.exists("./tccplus"):
+        print(f"'./tccplus' Check completed")
+    else:
+        try:
+            print(f"Download ‘tccplus’ from Github ...")
+            response = requests.get("https://github.com/Gloridust/tccplus-tool/releases/download/v0.1.0/tccplus")
+            if response.status_code == 200:
+                with open("./tccplus", 'wb') as f:
+                    f.write(response.content)
+                print("‘tccplus’ downloaded successfully and saved to './tccplus'")
+            else:
+                print("Download failed: Unable to connect to the specified URL")
+        except Exception as e:
+            print("Download failed:", e)
 
 def get_app_path():
     root = tk.Tk()
@@ -223,6 +241,7 @@ def run_tccplus(action,service,bundle_ident):
 
 
 def main():
+    check_and_download_tccplus()
     app_path = get_app_path()
     action = choose_action()
     service = choose_service()
