@@ -39,9 +39,9 @@ def check_and_download_tccplus():
     else:
         create_tccplus_folder()
         urls = [
-            "https://raw.githubusercontent.com/Gloridust/tccplus-tool/main/tccplus",
-            "https://raw.staticdn.net/Gloridust/tccplus-tool/main/tccplus",
-            "https://raw.fastgit.org/Gloridust/tccplus-tool/main/tccplus",
+            "https://raw.githubusercontent.com/Gloridust/tccplus-tool/main/src/tccplus",
+            "https://raw.staticdn.net/Gloridust/tccplus-tool/main/src/tccplus",
+            "https://raw.fastgit.org/Gloridust/tccplus-tool/main/src/tccplus",
         ]
         for url in urls:
             print(f"Download 'tccplus' from {url} ...")
