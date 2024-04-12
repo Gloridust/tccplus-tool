@@ -6,16 +6,16 @@ import os
 import requests
 
 def check_and_download_tccplus():
-    if os.path.exists("./tccplus"):
-        print(f"'./tccplus' Check completed")
+    if os.path.exists("~/Library/Application Support/tccplus"):
+        print(f"'tccplus' Check completed")
     else:
         try:
             print(f"Download ‘tccplus’ from Github ...")
             response = requests.get("https://github.com/Gloridust/tccplus-tool/releases/download/v0.1.0/tccplus")
             if response.status_code == 200:
-                with open("./tccplus", 'wb') as f:
+                with open("~/Library/Application Support/tccplus", 'wb') as f:
                     f.write(response.content)
-                print("‘tccplus’ downloaded successfully and saved to './tccplus'")
+                print("‘tccplus’ downloaded successfully and saved to 'tccplus'")
             else:
                 print("Download failed: Unable to connect to the specified URL")
         except Exception as e:
@@ -24,9 +24,9 @@ def check_and_download_tccplus():
                 print(f"Download ‘tccplus’ from Github Mirror site  ...")
                 response = requests.get("https://kgithub.com/Gloridust/tccplus-tool/releases/download/v0.1.0/tccplus")
                 if response.status_code == 200:
-                    with open("./tccplus", 'wb') as f:
+                    with open("~/Library/Application Support/tccplus", 'wb') as f:
                         f.write(response.content)
-                    print("‘tccplus’ downloaded from Mirror site successfully and saved to './tccplus'")
+                    print("‘tccplus’ downloaded from Mirror site successfully and saved to 'tccplus'")
                 else:
                     print("Download failed: Unable to connect to the specified URL")
             except Exception as e:
@@ -243,7 +243,7 @@ def get_bundle_identifier(app_path):
         print("Invalid Info.plist file")
 
 def run_tccplus(action,service,bundle_ident):
-    command = ["./tccplus", action, service, bundle_ident]
+    command = ["~/Library/Application Support/tccplus", action, service, bundle_ident]
     try:
         result = subprocess.run(command, capture_output=True, text=True, check=True)
         print(result.stdout)
