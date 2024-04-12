@@ -31,7 +31,7 @@ def choose_action():
     return action
 
 def choose_service():
-    print("请选择服务:")
+    print("choose service:")
     print("1. All")
     print("2. Accessibility")
     print("3. AddressBook")
@@ -71,128 +71,128 @@ def choose_service():
     print("37. Ubiquity")
     print("38. Willow")
 
-    choice = input("请输入服务的序号以选择服务:")
+    choice = input("Please enter the service serial number to select service:")
 
     if choice:
         if choice == "1":
-            print("您选择了 'All' 服务")
+            print("You Chose 'All' service")
             service = "All"
         elif choice == "2":
-            print("您选择了 'Accessibility' 服务")
+            print("You Chose 'Accessibility' service")
             service = "Accessibility"
         elif choice == "3":
-            print("您选择了 'AddressBook' 服务")
+            print("You Chose 'AddressBook' service")
             service = "AddressBook"
         elif choice == "4":
-            print("您选择了 'AppleEvents' 服务")
+            print("You Chose 'AppleEvents' service")
             service = "AppleEvents"
         elif choice == "5":
-            print("您选择了 'Calendar' 服务")
+            print("You Chose 'Calendar' service")
             service = "Calendar"
         elif choice == "6":
-            print("您选择了 'Camera' 服务")
+            print("You Chose 'Camera' service")
             service = "Camera"
         elif choice == "7":
-            print("您选择了 'ContactsFull' 服务")
+            print("You Chose 'ContactsFull' service")
             service = "ContactsFull"
         elif choice == "8":
-            print("您选择了 'ContactsLimited' 服务")
+            print("You Chose 'ContactsLimited' service")
             service = "ContactsLimited"
         elif choice == "9":
-            print("您选择了 'DeveloperTool' 服务")
+            print("You Chose 'DeveloperTool' service")
             service = "DeveloperTool"
         elif choice == "10":
-            print("您选择了 'Facebook' 服务")
+            print("You Chose 'Facebook' service")
             service = "Facebook"
         elif choice == "11":
-            print("您选择了 'LinkedIn' 服务")
+            print("You Chose 'LinkedIn' service")
             service = "LinkedIn"
         elif choice == "12":
-            print("您选择了 'ListenEvent' 服务")
+            print("You Chose 'ListenEvent' service")
             service = "ListenEvent"
         elif choice == "13":
-            print("您选择了 'Liverpool' 服务")
+            print("You Chose 'Liverpool' service")
             service = "Liverpool"
         elif choice == "14":
-            print("您选择了 'Location' 服务")
+            print("You Chose 'Location' service")
             service = "Location"
         elif choice == "15":
-            print("您选择了 'MediaLibrary' 服务")
+            print("You Chose 'MediaLibrary' service")
             service = "MediaLibrary"
         elif choice == "16":
-            print("您选择了 'Microphone' 服务")
+            print("You Chose 'Microphone' service")
             service = "Microphone"
         elif choice == "17":
-            print("您选择了 'Motion' 服务")
+            print("You Chose 'Motion' service")
             service = "Motion"
         elif choice == "18":
-            print("您选择了 'Photos' 服务")
+            print("You Chose 'Photos' service")
             service = "Photos"
         elif choice == "19":
-            print("您选择了 'PhotosAdd' 服务")
+            print("You Chose 'PhotosAdd' service")
             service = "PhotosAdd"
         elif choice == "20":
-            print("您选择了 'PostEvent' 服务")
+            print("You Chose 'PostEvent' service")
             service = "PostEvent"
         elif choice == "21":
-            print("您选择了 'Reminders' 服务")
+            print("You Chose 'Reminders' service")
             service = "Reminders"
         elif choice == "22":
-            print("您选择了 'ScreenCapture' 服务")
+            print("You Chose 'ScreenCapture' service")
             service = "ScreenCapture"
         elif choice == "23":
-            print("您选择了 'ShareKit' 服务")
+            print("You Chose 'ShareKit' service")
             service = "ShareKit"
         elif choice == "24":
-            print("您选择了 'SinaWeibo' 服务")
+            print("You Chose 'SinaWeibo' service")
             service = "SinaWeibo"
         elif choice == "25":
-            print("您选择了 'Siri' 服务")
+            print("You Chose 'Siri' service")
             service = "Siri"
         elif choice == "26":
-            print("您选择了 'SpeechRecognition' 服务")
+            print("You Chose 'SpeechRecognition' service")
             service = "SpeechRecognition"
         elif choice == "27":
-            print("您选择了 'SystemPolicyAllFiles' 服务")
+            print("You Chose 'SystemPolicyAllFiles' service")
             service = "SystemPolicyAllFiles"
         elif choice == "28":
-            print("您选择了 'SystemPolicyDesktopFolder' 服务")
+            print("You Chose 'SystemPolicyDesktopFolder' service")
             service = "SystemPolicyDesktopFolder"
         elif choice == "29":
-            print("您选择了 'SystemPolicyDeveloperFiles' 服务")
+            print("You Chose 'SystemPolicyDeveloperFiles' service")
             service = "SystemPolicyDeveloperFiles"
         elif choice == "30":
-            print("您选择了 'SystemPolicyDocumentsFolder' 服务")
+            print("You Chose 'SystemPolicyDocumentsFolder' service")
             service = "SystemPolicyDocumentsFolder"
         elif choice == "31":
-            print("您选择了 'SystemPolicyDownloadsFolder' 服务")
+            print("You Chose 'SystemPolicyDownloadsFolder' service")
             service = "SystemPolicyDownloadsFolder"
         elif choice == "32":
-            print("您选择了 'SystemPolicyNetworkVolumes' 服务")
+            print("You Chose 'SystemPolicyNetworkVolumes' service")
             service = "SystemPolicyNetworkVolumes"
         elif choice == "33":
-            print("您选择了 'SystemPolicyRemovableVolumes' 服务")
+            print("You Chose 'SystemPolicyRemovableVolumes' service")
             service = "SystemPolicyRemovableVolumes"
         elif choice == "34":
-            print("您选择了 'SystemPolicySysAdminFiles' 服务")
+            print("You Chose 'SystemPolicySysAdminFiles' service")
             service = "SystemPolicySysAdminFiles"
         elif choice == "35":
-            print("您选择了 'TencentWeibo' 服务")
+            print("You Chose 'TencentWeibo' service")
             service = "TencentWeibo"
         elif choice == "36":
-            print("您选择了 'Twitter' 服务")
+            print("You Chose 'Twitter' service")
             service = "Twitter"
         elif choice == "37":
-            print("您选择了 'Ubiquity' 服务")
+            print("You Chose 'Ubiquity' service")
             service = "Ubiquity"
         elif choice == "38":
-            print("您选择了 'Willow' 服务")
+            print("You Chose 'Willow' service")
             service = "Willow"
         else:
             print("无效的选项")
             service = None
     else:
-        print("未选择服务，默认选择 'All'")
+        print("No service is selected, 'All' is selected by default")
         service = "All"
     
     return service
