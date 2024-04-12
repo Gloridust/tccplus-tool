@@ -5,17 +5,31 @@ import subprocess
 import os
 import requests
 
+def create_tccplus_folder():
+    try:
+        folder_path = os.path.expanduser("~/Library/Caches/tccplus-tool/")
+        os.makedirs(folder_path, exist_ok=True)
+        print(f"文件夹 '{folder_path}' 创建成功")
+    except Exception as e:
+        if "FileExistsError" in str(e):
+            pass
+        else:
+            print(f"创建文件夹失败:", e)
+
 def check_and_download_tccplus():
-    if os.path.exists("~/Library/Application Support/tccplus"):
+    # 同样需要使用 os.path.expanduser() 来扩展 ~ 符号为用户的主目录
+    file_path = os.path.expanduser("~/Library/Caches/tccplus-tool/tccplus")
+    if os.path.exists(file_path):
         print(f"'tccplus' Check completed")
     else:
+        create_tccplus_folder()
         try:
             print(f"Download ‘tccplus’ from Github ...")
-            response = requests.get("https://github.com/Gloridust/tccplus-tool/releases/download/v0.1.0/tccplus")
+            response = requests.get("https://raw.githubusercontent.com/Gloridust/tccplus-tool/main/tccplus")
             if response.status_code == 200:
-                with open("~/Library/Application Support/tccplus", 'wb') as f:
+                with open(file_path, 'wb') as f:
                     f.write(response.content)
-                print("‘tccplus’ downloaded successfully and saved to 'tccplus'")
+                print("‘tccplus’ downloaded successfully")
             else:
                 print("Download failed: Unable to connect to the specified URL")
         except Exception as e:
@@ -24,9 +38,9 @@ def check_and_download_tccplus():
                 print(f"Download ‘tccplus’ from Github Mirror site  ...")
                 response = requests.get("https://kgithub.com/Gloridust/tccplus-tool/releases/download/v0.1.0/tccplus")
                 if response.status_code == 200:
-                    with open("~/Library/Application Support/tccplus", 'wb') as f:
+                    with open(file_path, 'wb') as f:
                         f.write(response.content)
-                    print("‘tccplus’ downloaded from Mirror site successfully and saved to 'tccplus'")
+                    print("‘tccplus’ downloaded from Mirror site successfully")
                 else:
                     print("Download failed: Unable to connect to the specified URL")
             except Exception as e:
@@ -243,7 +257,7 @@ def get_bundle_identifier(app_path):
         print("Invalid Info.plist file")
 
 def run_tccplus(action,service,bundle_ident):
-    command = ["~/Library/Application Support/tccplus", action, service, bundle_ident]
+    command = ["~/Library/Caches/tccplus", action, service, bundle_ident]
     try:
         result = subprocess.run(command, capture_output=True, text=True, check=True)
         print(result.stdout)
