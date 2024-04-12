@@ -6,8 +6,8 @@ import os
 import requests
 
 def create_tccplus_folder():
+    folder_path = os.path.expanduser("~/Library/Caches/tccplus-tool/")
     try:
-        folder_path = os.path.expanduser("~/Library/Caches/tccplus-tool/")
         os.makedirs(folder_path, exist_ok=True)
         print(f"文件夹 '{folder_path}' 创建成功")
     except Exception as e:
@@ -16,35 +16,37 @@ def create_tccplus_folder():
         else:
             print(f"创建文件夹失败:", e)
 
+def download_file(url, file_path):
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            with open(file_path, 'wb') as f:
+                f.write(response.content)
+            print(f"文件下载成功")
+            return True
+        else:
+            print("下载失败: 无法连接到指定的 URL")
+            return False
+    except Exception as e:
+        print("下载失败:", e)
+        return False
+
 def check_and_download_tccplus():
-    # 同样需要使用 os.path.expanduser() 来扩展 ~ 符号为用户的主目录
     file_path = os.path.expanduser("~/Library/Caches/tccplus-tool/tccplus")
     if os.path.exists(file_path):
         print(f"'tccplus' Check completed")
     else:
         create_tccplus_folder()
-        try:
-            print(f"Download ‘tccplus’ from Github ...")
-            response = requests.get("https://raw.githubusercontent.com/Gloridust/tccplus-tool/main/tccplus")
-            if response.status_code == 200:
-                with open(file_path, 'wb') as f:
-                    f.write(response.content)
-                print("‘tccplus’ downloaded successfully")
-            else:
-                print("Download failed: Unable to connect to the specified URL")
-        except Exception as e:
-            print("Download failed:", e)
-            try:
-                print(f"Download ‘tccplus’ from Github Mirror site  ...")
-                response = requests.get("https://kgithub.com/Gloridust/tccplus-tool/releases/download/v0.1.0/tccplus")
-                if response.status_code == 200:
-                    with open(file_path, 'wb') as f:
-                        f.write(response.content)
-                    print("‘tccplus’ downloaded from Mirror site successfully")
-                else:
-                    print("Download failed: Unable to connect to the specified URL")
-            except Exception as e:
-                print("Download from Mirror site failed:", e)
+        urls = [
+            "https://raw.githubusercontent.com/Gloridust/tccplus-tool/main/tccplus",
+            "https://raw.staticdn.net/Gloridust/tccplus-tool/main/tccplus"
+        ]
+        for url in urls:
+            print(f"从 {url} 下载 'tccplus' ...")
+            if download_file(url, file_path):
+                break
+        else:
+            print("所有源都无法下载 'tccplus'")
 
 def get_app_path():
     root = tk.Tk()
