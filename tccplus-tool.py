@@ -261,13 +261,15 @@ def get_bundle_identifier(app_path):
     except plistlib.InvalidFileException:
         print("Invalid Info.plist file")
 
-def run_tccplus(action,service,bundle_ident):
-    command = ["~/Library/Caches/tccplus-tool/tccplus", action, service, bundle_ident]
+def run_tccplus(action, service, bundle_ident):
+    tccplus_path = os.path.expanduser("~/Library/Caches/tccplus-tool/tccplus")
+    command = [tccplus_path, action, service, bundle_ident]
     try:
         result = subprocess.run(command, capture_output=True, text=True, check=True)
         print(result.stdout)
     except subprocess.CalledProcessError as e:
         print("Command execution failed:", e)
+
 
 
 def main():
