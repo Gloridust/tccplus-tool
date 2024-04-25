@@ -6,7 +6,7 @@
 #include <unistd.h>
 #include <curl/curl.h>
 #include <CoreFoundation/CoreFoundation.h> // 添加CoreFoundation头文件
-#include <sys/stat.h>
+#include <sys/stat.h> // 添加sys/stat.h头文件
 
 // 下载文件
 bool downloadFile(const std::string& url) {
@@ -135,9 +135,9 @@ std::string getBundleIdentifier(const std::string& appPath) {
                 CFPropertyListRef plist = CFPropertyListCreateWithData(nullptr, data, kCFPropertyListImmutable, nullptr, nullptr);
                 if (plist) {
                     CFDictionaryRef dict = static_cast
-                    CFDictionaryRef>(plist);
+(CFDictionaryRef)(plist);
                     CFStringRef bundleIdent = static_cast
-                    CFStringRef>(CFDictionaryGetValue(dict, CFSTR("CFBundleIdentifier")));
+(CFStringRef)(CFDictionaryGetValue(dict, CFSTR("CFBundleIdentifier")));
                     if (bundleIdent) {
                         char identifier[1024];
                         CFStringGetCString(bundleIdent, identifier, sizeof(identifier), kCFStringEncodingUTF8);
@@ -150,6 +150,8 @@ std::string getBundleIdentifier(const std::string& appPath) {
                 } else {
                     std::cerr << "Invalid Info.plist file" << std::endl;
                 }
+            } else {
+                std::cerr << "Error reading Info.plist" << std::endl;
             }
         } else {
             std::cerr << "File not found" << std::endl;
