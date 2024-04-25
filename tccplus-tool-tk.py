@@ -41,18 +41,9 @@ def check_and_download_tccplus():
             return False
 
 def get_app_path():
-    # root = tk.Tk()
-    # root.withdraw()  # Hide windows
-    # app_path = filedialog.askopenfilename()  # Select app
-    app_path = input("Drop or input app_path here:")
-
-    if user_input.startswith("'") and user_input.endswith("'"):
-        # 去掉开头和结尾的单引号
-        app_path = app_path[1:-1]
-    elif user_input.startswith('"') and user_input.endswith('"'):
-        # 去掉开头和结尾的双引号
-        user_input = user_input[1:-1]
-
+    root = tk.Tk()
+    root.withdraw()  # Hide windows
+    app_path = filedialog.askopenfilename()  # Select app
     print("Your app path is:：", app_path)
     return app_path
 
