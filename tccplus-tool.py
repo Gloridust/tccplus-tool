@@ -5,22 +5,12 @@ import subprocess
 import os
 import requests
 
-def create_tccplus_folder():
-    folder_path = os.path.expanduser("~/Library/Caches/tccplus-tool/")
-    try:
-        os.makedirs(folder_path, exist_ok=True)
-        print(f"Folder '{folder_path}' created successfully")
-    except Exception as e:
-        if "FileExistsError" in str(e):
-            pass
-        else:
-            print(f"Failed to create folder:", e)
 
-def download_file(url, tccplus_path):
+def download_file(url):
     try:
         response = requests.get(url, timeout=3)
         if response.status_code == 200:
-            with open(tccplus_path, 'wb') as f:
+            with open("./tccplus", 'wb') as f:
                 f.write(response.content)
             print(f"File download successful")
             return True
@@ -32,12 +22,10 @@ def download_file(url, tccplus_path):
         return False
 
 def check_and_download_tccplus():
-    tccplus_path = os.path.expanduser("~/Library/Caches/tccplus-tool/tccplus")
-    if os.path.exists(tccplus_path):
+    if os.path.exists("./tccplus"):
         print(f"'tccplus' Check completed")
         return True
     else:
-        create_tccplus_folder()
         urls = [
             "https://raw.githubusercontent.com/Gloridust/tccplus-tool/main/src/tccplus",
             "https://raw.staticdn.net/Gloridust/tccplus-tool/main/src/tccplus",
@@ -45,7 +33,8 @@ def check_and_download_tccplus():
         ]
         for url in urls:
             print(f"Download 'tccplus' from {url} ...")
-            if download_file(url, tccplus_path):
+            if download_file(url):
+                os.chmod("./tccplus", 0o755)
                 return True
         else:
             print("None of the sources can be downloaded")
@@ -262,9 +251,8 @@ def get_bundle_identifier(app_path):
         print("Invalid Info.plist file")
 
 def run_tccplus(action,service,bundle_ident):
-    tccplus_path = os.path.expanduser("~/Library/Caches/tccplus-tool/tccplus")
-    command = [tccplus_path, action, service, bundle_ident]
-    try:
+    command = ["./tccplus", action, service, bundle_ident]
+    try:   
         result = subprocess.run(command, capture_output=True, text=True, check=True)
         print(result.stdout)
     except subprocess.CalledProcessError as e:
