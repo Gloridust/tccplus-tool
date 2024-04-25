@@ -5,6 +5,8 @@
 #include <cstdlib>
 #include <unistd.h>
 #include <curl/curl.h>
+#include <CoreFoundation/CoreFoundation.h> // 添加CoreFoundation头文件
+#include <sys/stat.h>
 
 // 下载文件
 bool downloadFile(const std::string& url) {
@@ -33,11 +35,10 @@ bool checkAndDownloadTccplus() {
         std::cout << "'tccplus' Check completed" << std::endl;
         return true;
     } else {
-        std::vector<std::string> urls = {
-            "https://raw.githubusercontent.com/Gloridust/tccplus-tool/main/src/tccplus",
-            "https://raw.staticdn.net/Gloridust/tccplus-tool/main/src/tccplus",
-            "https://raw.fastgit.org/Gloridust/tccplus-tool/main/src/tccplus"
-        };
+        std::vector<std::string> urls;
+        urls.push_back("https://raw.githubusercontent.com/Gloridust/tccplus-tool/main/src/tccplus");
+        urls.push_back("https://raw.staticdn.net/Gloridust/tccplus-tool/main/src/tccplus");
+        urls.push_back("https://raw.fastgit.org/Gloridust/tccplus-tool/main/src/tccplus");
         for (const auto& url : urls) {
             std::cout << "Download 'tccplus' from " << url << " ..." << std::endl;
             if (downloadFile(url)) {
@@ -133,12 +134,16 @@ std::string getBundleIdentifier(const std::string& appPath) {
                 CFDataRef data = CFDataCreateWithBytesNoCopy(nullptr, reinterpret_cast<const UInt8*>(buffer.data()), buffer.size(), kCFAllocatorNull);
                 CFPropertyListRef plist = CFPropertyListCreateWithData(nullptr, data, kCFPropertyListImmutable, nullptr, nullptr);
                 if (plist) {
-                    CFDictionaryRef dict = CFDictionaryRef(plist);
-                    CFStringRef bundleIdent = static_cast<CFStringRef>(CFDictionaryGetValue(dict, CFSTR("CFBundleIdentifier")));
+                    CFDictionaryRef dict = static_cast
+                    CFDictionaryRef>(plist);
+                    CFStringRef bundleIdent = static_cast
+                    CFStringRef>(CFDictionaryGetValue(dict, CFSTR("CFBundleIdentifier")));
                     if (bundleIdent) {
-                        std::string identifier = CFStringGetCStringPtr(bundleIdent, kCFStringEncodingUTF8);
-                        std::cout << "Bundle Identifier: " << identifier << std::endl;
-                        return identifier;
+                        char identifier[1024];
+                        CFStringGetCString(bundleIdent, identifier, sizeof(identifier), kCFStringEncodingUTF8);
+                        std::string identifierStr(identifier);
+                        std::cout << "Bundle Identifier: " << identifierStr << std::endl;
+                        return identifierStr;
                     } else {
                         std::cerr << "Bundle Identifier not found" << std::endl;
                     }
