@@ -41,10 +41,10 @@ def check_and_download_tccplus():
 def get_app_path():
     app_path = input("Drop or input app_path here:")
 
-    if user_input.startswith("'") and user_input.endswith("'"):
+    if app_path.startswith("'") and user_input.endswith("'"):
         # 去掉开头和结尾的单引号
         app_path = app_path[1:-1]
-    elif user_input.startswith('"') and user_input.endswith('"'):
+    elif app_path.startswith('"') and user_input.endswith('"'):
         # 去掉开头和结尾的双引号
         user_input = user_input[1:-1]
 
