@@ -28,6 +28,7 @@ def check_and_download_tccplus():
             "https://raw.githubusercontent.com/Gloridust/tccplus-tool/main/src/tccplus",
             "https://raw.staticdn.net/Gloridust/tccplus-tool/main/src/tccplus",
             "https://raw.fastgit.org/Gloridust/tccplus-tool/main/src/tccplus",
+            "https://github.com/Gloridust/tccplus-tool/releases/download/v0.1.0/tccplus"
         ]
         for url in urls:
             print(f"Download 'tccplus' from {url} ...")
